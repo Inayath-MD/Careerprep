@@ -1,0 +1,27 @@
+# Ignore dependencies and build artifacts
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+
+# Python Virtual Environments & Packages
+Rag/venv/
+Rag/.env
+Rag/resumes/
+Rag/__pycache__/
+*.pyc
+
+# Java/Maven Build
+careerprep/target/
+careerprep/.mvn/wrapper/maven-wrapper.jar
+
+# IDEs & System Files
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+Thumbs.db
+*.log

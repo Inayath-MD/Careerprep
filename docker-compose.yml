@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  backend:
+    build: 
+      context: ./careerprep
+    container_name: careerprep-backend
+    ports:
+      - "8080:8080"
+    # Connects to your local MySQL running on Windows
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  rag:
+    build:
+      context: ./Rag
+    container_name: careerprep-rag
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        - VITE_API_BASE_URL=http://localhost:8080
+    container_name: careerprep-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
