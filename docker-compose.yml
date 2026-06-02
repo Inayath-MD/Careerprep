@@ -1,13 +1,24 @@
 version: '3.8'
 
 services:
+  mysql:
+    image: mysql:8.0
+    container_name: careerprep-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Inayath5196
+      MYSQL_DATABASE: careerprep
+    ports:
+      - "3307:3306"
+
   backend:
     build: 
       context: ./careerprep
     container_name: careerprep-backend
     ports:
       - "8080:8080"
-    # Connects to your local MySQL running on Windows
+    depends_on:
+      - mysql
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
