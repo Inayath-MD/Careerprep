@@ -1,0 +1,27 @@
+name: Deploy CareerPrep to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy on EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+          script: |
+            cd ~/Careerprep
+            git pull origin main
+            cd careerprep
+            ./mvnw clean package -DskipTests
+            cd ..
+            sudo docker compose down
+            sudo docker compose up -d --build
+            sudo docker ps
