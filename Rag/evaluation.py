@@ -57,7 +57,7 @@ Return ONLY a valid JSON object in the following format (do not include any conv
 """
 
     response = client.chat.completions.create(
-        model="meta-llama/llama-3-8b-instruct",
+        model="meta-llama/llama-3.1-8b-instruct",
         messages=[
             {
                 "role": "system",
