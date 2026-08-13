@@ -8,6 +8,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: Inayath5196
       MYSQL_DATABASE: careerprep
+    restart: always
     ports:
       - "3307:3306"
 
@@ -15,6 +16,7 @@ services:
     build: 
       context: ./careerprep
     container_name: careerprep-backend
+    restart: always
     ports:
       - "8080:8080"
     depends_on:
@@ -26,15 +28,20 @@ services:
     build:
       context: ./Rag
     container_name: careerprep-rag
+    restart: always
     ports:
       - "8000:8000"
+    env_file:
+      - ./Rag/.env
+
 
   frontend:
     build:
       context: ./frontend
       args:
-        - VITE_API_BASE_URL=http://localhost:8080
+      - VITE_API_BASE_URL=http://34.207.236.109:8080
     container_name: careerprep-frontend
+    restart: always
     ports:
       - "80:80"
     depends_on:
