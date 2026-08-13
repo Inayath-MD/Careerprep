@@ -8,7 +8,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: Inayath5196
       MYSQL_DATABASE: careerprep
-    restart: always
     ports:
       - "3307:3306"
 
