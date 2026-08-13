@@ -9,9 +9,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Copy requirements and install python packages
 COPY requirements.txt .
-# Install CPU-only PyTorch to reduce image size and download time significantly
-RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
-# Install remaining dependencies with extended timeout
+
+# Upgrade pip, setuptools, and wheel first
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel
+
+# Install CPU-only PyTorch (--extra-index-url keeps PyPI as primary,
+# so transitive deps like flit_core resolve from PyPI normally)
+RUN pip install --no-cache-dir torch --extra-index-url https://download.pytorch.org/whl/cpu
+
+# Install remaining dependencies
 RUN pip install --no-cache-dir --default-timeout=1000 -r requirements.txt
 
 
